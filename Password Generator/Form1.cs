@@ -17,11 +17,12 @@ namespace Password_Generator
             InitializeComponent();
         }
 
-        private String[] characters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
-                                        "a", "b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"};
-        private String[] specialCharacters = { "<", ">", "#", "&", "@", "{", "}", "ä", "[", "]", "$", "ß", "\\", "|", "€",
-                                                "÷", "§", "~", "'", "ˇ", "\"", "^", "+", "!", "%", "˛", "/", "=", "(", ")", "¸","*","_",
-                                                "-","?"};
+        private String upperCaseChars = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
+        private String lowerCaseChars = "abcdefghijklmopqrstuvwxyz";
+        private String specialChars = "<>#&@{},;.:-_*!%/=()$[]|\"\\";
+        private String[] upperCaseCharacters = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        private String[] lowerCaseCharacters = { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
+        private String[] specialCharacters = { "<", ">", "#", "&", "@", "{", "}", "[", "]", "$", "ß", "\\", "|", "÷", "§", "\"", "^", "+", "!", "%", "˛", "/", "=", "(", ")", "¸","*","_", "-","?"};
         private void gen_Button_Click(object sender, EventArgs e)
         {
             
@@ -42,29 +43,40 @@ namespace Password_Generator
 
         }
 
+
+
         private String genPassword()
         {
             String password = "";
             Random r = new Random();
 
-            for (int i = 0; i < pwLenght_NmbUD.Value; i++)
+            String characters = "";
+
+            if (lowerCase_CB.Checked)
             {
-                int rnd = r.Next(0, 2 + 1);
-                if (rnd == 0)
+                characters += lowerCaseChars;
+            }
+            if (upperCase_CB.Checked)
+            {
+                characters += upperCaseChars;
+            }
+            if (specialChars_CB.Checked)
+            {
+                characters += specialChars;
+            }
+
+            if (characters.Length >= 1)
+            {
+                for (int i = 0; i < pwLenght_NmbUD.Value; i++)
                 {
-                    password += r.Next(0, 10);
-                }
-                else if (rnd == 1)
-                {
-                    int rnd1 = r.Next(0, characters.Length);
-                    password += characters.GetValue(rnd1);
-                }
-                else if (rnd == 2)
-                {
-                    int rnd1 = r.Next(0, specialCharacters.Length);
-                    password += specialCharacters.GetValue(rnd1);
+                    password += characters[r.Next(0,characters.Length)];
                 }
             }
+            else
+            {
+                MessageBox.Show("Please select at least one of the checkbox.");
+            }
+
 
             return password;
         }
@@ -73,6 +85,11 @@ namespace Password_Generator
         {
             Clipboard.Clear();
             Clipboard.SetText(pw_TextBox.Text);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
