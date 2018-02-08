@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pw_TextBox = new System.Windows.Forms.TextBox();
             this.gen_Button = new System.Windows.Forms.Button();
             this.pwLenght_NmbUD = new System.Windows.Forms.NumericUpDown();
@@ -139,6 +140,7 @@
             this.Controls.Add(this.gen_Button);
             this.Controls.Add(this.pw_TextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Password Generator";
             this.Load += new System.EventHandler(this.Form1_Load);
