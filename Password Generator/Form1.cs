@@ -68,5 +68,11 @@ namespace Password_Generator
 
             return password;
         }
+
+        private void copy_Btn_Click(object sender, EventArgs e)
+        {
+            Clipboard.Clear();
+            Clipboard.SetText(pw_TextBox.Text);
+        }
     }
 }
